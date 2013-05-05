@@ -2,6 +2,8 @@
 --
     import "github.com/MJKWoolnough/crypto-asymmetric"
 
+Package asymmetric handles the loading of rsa public and private keys and the
+signing of arbitrary objects.
 
 ## Usage
 

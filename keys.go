@@ -24,15 +24,14 @@
 
 // Package asymmetric handles the loading of rsa public and private keys and the
 // signing of arbitrary objects.
-
 package asymmetric
 
 import (
-	"encoding/binary"
 	"bytes"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/binary"
 	"encoding/pem"
 	"io"
 	"math/big"
@@ -46,14 +45,14 @@ func (e keyError) Error() string {
 	return e.err
 }
 
-const (
-	err_invalid = keyError { "Invalid Public Key Format" }
-	err_noKey   = keyError { "No key found!" }
+var (
+	err_invalid = keyError{"Invalid Public Key Format"}
+	err_noKey   = keyError{"No key found!"}
 )
 
 // PublicKey tries to read a rsa public key from the given reader.
 func PublicKey(f io.Reader) (*rsa.PublicKey, error) {
-        data := make([]byte, 8)
+	data := make([]byte, 8)
 	if err := binary.Read(f, binary.BigEndian, &data); err != nil {
 		return nil, err
 	}
@@ -81,7 +80,7 @@ func PublicKey(f io.Reader) (*rsa.PublicKey, error) {
 	}
 	e := int(0)
 	pos := uint(0)
-	for i := size - 1; i >=0; i-- {
+	for i := size - 1; i >= 0; i-- {
 		e |= int(uint32(data[i]) << pos)
 		pos += 8
 	}
